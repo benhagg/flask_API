@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book List</title>
+    <!-- Add your CSS links here -->
+</head>
+<body>
+    <h1>Book List</h1>
+    <form id="bookForm">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Language</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.language }}</td>
+                    <td>
+                        <button type="button" onclick="editBook('{{ book.id }}')">Edit</button>
+                        <button type="button" onclick="deleteBook('{{ book.id }}')">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    <button onclick="addBook()">Add Book</button>
+
+    <!-- Add your JavaScript links here -->
+</body>
+</html>

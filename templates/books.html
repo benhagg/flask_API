@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{%block%}{%endblock%}</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='')}}">
+    </head>
+    <body>
+        for row in db.execute("SELECT * FROM books"):
+            <p>
+                {{row['title']}}, {{row['author']}}, {{row['language']}}
+            </p>
+    </body>
+</html>
