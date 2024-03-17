@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+{%block title%}Book List{%endblock%}
+</head>
+{%block content%}
+    <h1>Book List</h1>
+    <form id="bookForm">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Author</th>
+                    <th>Language</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book[0] }}</td>
+                    <td>{{ book[1] }}</td>
+                    <td>{{ book[2] }}</td>
+                    <td>{{ book[3] }}</td>
+                    <td>
+                        <button type="button" onclick="editBook('{{ book.id }}')">Edit</button> <!--runs AJAX func editbook()-->
+                        <button type="button" onclick="deleteBook('{{ book.id }}')">Delete</button> 
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    <button onclick="addBook()">Add Book</button>
+
+    <!-- Add your JavaScript links here -->
+{%endblock%}
+</html>
