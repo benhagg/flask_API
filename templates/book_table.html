@@ -21,7 +21,7 @@
                 {% for book in books %}
                 <tr>
                     <td>
-                        <button class = "button" type="button" onclick="editBook('{{ book.id }}')">Edit</button> <!--runs AJAX func editbook()-->
+                        <!--<button class = "button" type="button" onclick="editBook('{{ book.id }}')">Edit</button> runs AJAX func editbook()-->
                         <button class = "button delete-button" type="button" onclick="deleteBook('{{ book[0] }}')">Delete</button> 
                     </td>
                     <td>{{ book[0] }}</td>
