@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect("books.sqlite") # connects to and generates sqlite3 file if it does not exist
+conn = sqlite3.connect("backend/books.sqlite") # connects to and generates sqlite3 file if it does not exist
 cursor = conn.cursor() # cursor object is used to execute SQL queries
 
 sql_query = """CREATE TABLE book (
