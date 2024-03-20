@@ -1,12 +1,16 @@
 {%extends 'base.html'%}
 {%block title%}Book List{%endblock%}
 </head>
+<link rel = "stylesheet" href = "styles.css">
 {%block content%}
-    <h1>Book List</h1>
-    <form id="bookForm">
+<h1>Book List</h1>
+<input type = "text" id = "search" onkeyup = "search()" placeholder = "Search for books by title ...">
+<button class = "button add-button" onclick="addBook()"> Add Book </button>
+<form id="bookForm">
         <table>
             <thead>
                 <tr>
+                    <th></th>
                     <th>ID</th>
                     <th>Author</th>
                     <th>Language</th>
@@ -16,21 +20,19 @@
             <tbody>
                 {% for book in books %}
                 <tr>
+                    <td>
+                        <button class = "button" type="button" onclick="editBook('{{ book.id }}')">Edit</button> <!--runs AJAX func editbook()-->
+                        <button class = "button delete-button" type="button" onclick="deleteBook('{{ book[0] }}')">Delete</button> 
+                    </td>
                     <td>{{ book[0] }}</td>
                     <td>{{ book[1] }}</td>
                     <td>{{ book[2] }}</td>
                     <td>{{ book[3] }}</td>
-                    <td>
-                        <button type="button" onclick="editBook('{{ book.id }}')">Edit</button> <!--runs AJAX func editbook()-->
-                        <button type="button" onclick="deleteBook('{{ book.id }}')">Delete</button> 
-                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </form>
-    <button onclick="addBook()">Add Book</button>
-
-    <!-- Add your JavaScript links here -->
+    <script src="../static/buttons.js"></script>
 {%endblock%}
 </html>
