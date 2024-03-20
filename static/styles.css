@@ -1,0 +1,79 @@
+/* Title Styles */
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+
+/* Basic Button Styles */
+.button {
+    display: inline-block;
+    padding: 8px 15px; /* Button padding */
+    font-size: 16px; /* Text size */
+    cursor: pointer; /* Changes cursor to pointer when hovering over the button */
+    text-align: center;
+    text-decoration: none; /* Removes underline from links */
+    color: #ffffff; /* Text color */
+    background-color: #007bff; /* Background color */
+    border: none; /* Removes border */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+  }
+  
+/* Button Hover Effect */
+.button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarges the button */
+}
+
+/* Button Focus Effect */
+.button:focus {
+    outline: none; /* Removes the outline to avoid distraction */
+}
+
+/* Button Active/Clicked Effect */
+.button:active {
+    transform: scale(0.95); /* Slightly reduces the button size to mimic a press-down effect */
+}
+
+/* Additional style for delete button */
+.delete-button {
+    background-color: #dc3545; /* Background color for delete button */
+}
+
+/* style for the add button */
+.add-button {
+    background-color: #007bff;
+    width: 135px;
+    height: 40px;
+}
+
+/* ------------------------- Table Styles --------------------------- */
+/* Basic Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #dddddd;
+    text-align: left;
+}
+
+/* Hover Highlight */
+tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* Shading for Every Other Row */
+tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* Shading for Odd Rows (Optional) */
+tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
