@@ -77,3 +77,25 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
     background-color: #f9f9f9;
 }
+
+
+/* ------------------------- Search Bar --------------------------- */
+#search {
+    padding: 8px 12px; /* Adjust padding as needed */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    width: 325px; /* Adjust width as needed */
+  }
+  
+  /* Optional: Style placeholder text */
+  #search::placeholder {
+    color: #999; /* Placeholder text color */
+  }
+  
+  /* Optional: Style on focus */
+  #search:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #66afe9; /* Border color on focus */
+  }
+  
