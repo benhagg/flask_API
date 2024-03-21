@@ -17,7 +17,7 @@ def get_books():
     conn = db_connection() # connection to the db (local function)
     if conn is None:
         return jsonify("Database connection failed"), 500
-    cursor = conn.cursor() # cursor object interacts with the db
+    cursor = conn.cursor() # cursor bookect interacts with the db
 # GET
     if request.method == 'GET':
         # this is the sql query passed to the db
@@ -26,41 +26,43 @@ def get_books():
         conn.close()
         return books, 200
 
-# GET by ID (not used yet)
-@ api_bp.route('/book_id/<int:id>', methods = ['GET'])
-def get_individual_book(id):
+# GET by title (not used yet)
+@ api_bp.route('/search_book_title/<title>', methods = ['GET'])
+def get_indivtitleual_book(title):
     conn = db_connection()
     if conn is None:
         return jsonify({'Error': "Database connection failed"}), 500
     cursor = conn.cursor()
     if request.method == 'GET':
-        cursor.execute('SELECT * FROM book WHERE ID = ?', (id,))
-        book = cursor.fetchone()
-        conn.close()
-        if book:
-            book = {
-                'id': book[0],
-                'author': book[1],
-                'language': book[2],
-                'title': book[3]
-            }
-            return jsonify(book)
+        cursor.execute('SELECT * FROM book WHERE title LIKE ?', ('%' + title + '%',))
+        books = cursor.fetchall()
+        if books:
+            book_list = []
+            for book in books:
+                book = {
+                    'id': book[0],
+                    'author': book[1],
+                    'language': book[2],
+                    'title': book[3]
+                }   
+                book_list.append(book)
+            return jsonify(book_list)
         else:
-            return jsonify('book not found'), 404
+            return jsonify({'message':'book not found'}), 404
             
 
 
-# delete by id (for button)
-@api_bp.route('/del_books/<int:id>', methods=['DELETE'])
-def del_books(id):
+# delete by title (for button)
+@api_bp.route('/del_books/<int:title>', methods=['DELETE'])
+def del_books(title):
     conn = db_connection()
     if conn is None:
         return jsonify({'Error': "Database connection failed"}), 500
     cursor = conn.cursor()
     if request.method == 'DELETE':
-        cursor.execute('DELETE FROM book WHERE id = ?', (id,))
+        cursor.execute('DELETE FROM book WHERE title = ?', (title,))
         conn.commit()
-        return jsonify({'message': f"Book with ID {id} was deleted"})
+        return jsonify({'message': f"Book with title {title} was deleted"})
 
 
 
@@ -74,61 +76,61 @@ def edit_books():
 # POST
     if request.method == 'POST':
         if request.is_json: #checks if json data was submitted
-            if isinstance(request.json, list): # checks if json objects are in a list (for multiple objects)
+            if isinstance(request.json, list): # checks if json bookects are in a list (for multiple bookects)
                 for item in request.json:
                     new_author = item.get('author') # item is a json dictionary so .get() can be called
                     new_lang = item.get('language')
                     new_title = item.get('title')
                     sql = """INSERT INTO book(author, language, title)
                     VALUES (?, ?, ?)""" # ? are placeholders in parameterized query
-                    # Execute the SQL statement with the provided values in place of ?, ?, ?
+                    # Execute the SQL statement with the provtitleed values in place of ?, ?, ?
                     cursor = cursor.execute(sql, (new_author, new_lang, new_title))
                     conn.commit()
-                return f"Book with id: {cursor.lastrowid} created successfully", 200 # return needs to be outside the for loop
-            else: # for single json object (not in list)
+                return f"Books created successfully", 200  # return needs to be outstitlee the for loop
+            else: # for single json bookect (not in list)
                 new_author = request.json.get('author')
                 new_lang = request.json.get('language')
                 new_title = request.json.get('title')
                 sql = """INSERT INTO book(author, language, title)
                 VALUES (?, ?, ?)""" # ? are placeholders in parameterized query
-                # Execute the SQL statement with the provided values in place of ?, ?, ?
+                # Execute the SQL statement with the provtitleed values in place of ?, ?, ?
                 cursor = cursor.execute(sql, (new_author, new_lang, new_title))
                 conn.commit()
-                return f"Book with id: {cursor.lastrowid} created successfully", 200
-             # no need to request for id because the SQL database automatically creates it as the primary key
+                return f"Book with title: {cursor.lastrowtitle} created successfully", 200
+             # no need to request for title because the SQL database automatically creates it as the primary key
         else: # checks if form data was submitted
             new_author = request.form['author'] # author value from the user input form
             new_lang = request.form['language']
             new_title = request.form['title']
             sql = """INSERT INTO book(author, language, title)
             VALUES (?, ?, ?)""" # ? are placeholders in parameterized query
-            # Execute the SQL statement with the provided values in place of ?, ?, ?
+            # Execute the SQL statement with the provtitleed values in place of ?, ?, ?
             cursor = cursor.execute(sql, (new_author, new_lang, new_title))
             conn.commit()
-            return f"Book with id: {cursor.lastrowid} created successfully", 200
-            # no need to request for id because the SQL database automatically creates it as the primary key
+            return f"Book with title: {cursor.lastrowtitle} created successfully", 200
+            # no need to request for title because the SQL database automatically creates it as the primary key
 # DELETE
     elif request.method == 'DELETE':
-         sql = ("DELETE FROM book WHERE id = ?")
-         #sql2 = ("SELECT name FROM books WHERE id = ?")
-         del_id =  request.form['id']
-         cursor = conn.execute(sql,(del_id,)) # even with one paramter (del_id) it still needs to be passed as a tuple
+         sql = ("DELETE FROM book WHERE title = ?")
+         #sql2 = ("SELECT name FROM books WHERE title = ?")
+         del_title =  request.form['title']
+         cursor = conn.execute(sql,(del_title,)) # even with one paramter (del_title) it still needs to be passed as a tuple
          conn.commit() # make sure to use this otherwise the change isnt pushed to the db
-         return f"book with id:{del_id} deleted"
+         return f"book with title:{del_title} deleted"
 # PUT  
     elif request.method == 'PUT': # used to completely update a record
         sql = ('UPDATE book SET ') # ensure space comes after SET to seperate from fields
-        update_id = request.form['id']
+        update_title = request.form['title']
         new_author = request.form['author']
         new_lang = request.form['language']
         new_title = request.form['title']
-        cursor = cursor.execute(sql, (new_author, new_lang, new_title, update_id))
+        cursor = cursor.execute(sql, (new_author, new_lang, new_title, update_title))
         conn.commit()
-        return f"book with id:{update_id} updated"
+        return f"book with title:{update_title} updated"
 # PATCH   
     elif request.method == 'PATCH': # could also use a put method with same logic?
         sql = 'UPDATE book SET ' # start the sql query (rest will be generated later)
-        update_id = request.form.get('id') # use get as to not throw an error if the id is not in the form
+        update_title = request.form.get('title') # use get as to not throw an error if the title is not in the form
         new_values = []
         message = []
         new_columns = []
@@ -153,10 +155,10 @@ def edit_books():
         # generate the sql query based on what fields were passed in the form
         # join all fields in the new_values list with comma and space append to sql query
         sql += ', '.join([f"{field} = ?" for field in new_columns])
-        sql += " WHERE id = ?"
+        sql += " WHERE title = ?"
 
         # post to the db  
-        cursor = cursor.execute(sql, (*new_values, update_id))
+        cursor = cursor.execute(sql, (*new_values, update_title))
         conn.commit()
 
-        return '\n'.join(message), f"book with id:{update_id} updated"
+        return '\n'.join(message), f"book with title:{update_title} updated"
