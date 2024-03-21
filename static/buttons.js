@@ -44,30 +44,31 @@ function searchBooks() {
                 throw new Error('Failed to fetch search results');
             }
         })
-        .then(data => {
-            // Process the retrieved data (e.g., display search results on the page)
-            displaySearchResults(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert("Failed to fetch search results. Please try again later.");
-        });
-}
-
-function displaySearchResults(results) {
-    // Example: assuming 'results' is an array of book objects with id, title, author
-    const searchResultsContainer = document.getElementById('searchResults');
-    searchResultsContainer.innerHTML = ""; // Clear previous search results
-
-    if (results.length === 0) {
-        searchResultsContainer.innerHTML = "<p>No results found.</p>";
-    } else {
-        const resultList = document.createElement('ul');
-        results.forEach(book => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${book.title} by ${book.author}`;
-            resultList.appendChild(listItem);
-        });
-        searchResultsContainer.appendChild(resultList);
     }
-}
+    
+//         .then(data => {
+//             // Process the retrieved data (e.g., display search results on the page)
+//             displaySearchResults(data);
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//             alert("Failed to fetch search results. Please try again later.");
+//         });
+// }
+
+// function displaySearchResults(results) {
+//     // Example: assuming 'results' is an array of book objects with id, title, author
+//     const searchResultsContainer = document.getElementById('searchResults');
+//     searchResultsContainer.innerHTML = ""; // Clear previous search results
+
+//     if (results.length === 0) {
+//         searchResultsContainer.innerHTML = "<p>No results found.</p>";
+//     } else {
+//         const resultList = document.createElement('ul');
+//         results.forEach(book => {
+//             const listItem = document.createElement('li');
+//             listItem.textContent = `${book.title} by ${book.author}`;
+//             resultList.appendChild(listItem);
+//         });
+//         searchResultsContainer.appendChild(resultList);
+//     }
