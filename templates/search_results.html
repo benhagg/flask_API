@@ -4,7 +4,7 @@
 <link rel = "stylesheet" href = "styles.css">
 {%block content%}
 <h1>Book List</h1>
-<input type = "text" id = "search" onkeypress = "key_press(event)" placeholder = "Search for books by title ...">
+<input type = "text" id = "search" onkeypress = "key_press()" placeholder = "Search for books by title ...">
 <button class = "button add-button" onclick="addBook()"> Add Book </button>
 <form id="bookForm">
         <table>
@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for book in books %}
+                {% for book in search_books %}
                 <tr>
                     <td>
                         <!--<button class = "button" type="button" onclick="editBook('{{ book.id }}')">Edit</button> runs AJAX func editbook()-->
